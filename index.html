@@ -1,26 +1,30 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vaty - Chatbot</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Vaty - Chatbot SEMYDA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="chat-container">
-        <div id="chat-header">
-            <img src="avatar.png" alt="Avatar de Vaty" class="avatar">
-            <h2>Vaty</h2>
-        </div>
-        <div id="chat-body">
-            <p class="loading">Chargement de Vaty...</p>
-        </div>
-        <div id="chat-input">
-            <input type="text" placeholder="Posez votre question ici...">
-        </div>
+
+  <div id="chat-button">
+    <img src="assets/avatar.png" alt="Vaty" />
+  </div>
+
+  <div id="chat-container">
+    <div id="chat-loader">
+      <img src="assets/loader.gif" alt="Chargement..." />
     </div>
-    <audio id="startup-sound" src="startup.mp3" autoplay></audio>
-    <script src="script.js"></script>
+    <iframe id="chat-iframe" src="about:blank" style="display:none;"></iframe>
+    <div class="contact-options">
+      <a href="mailto:contact@semyda.com" target="_blank">📧 Contact mail</a>
+      <a href="https://wa.me/221771234567" target="_blank">💬 WhatsApp</a>
+    </div>
+  </div>
+
+  <audio id="chat-sound" src="assets/sound.mp3" preload="auto"></audio>
+
+  <script src="script.js"></script>
 </body>
 </html>
