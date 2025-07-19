@@ -1,30 +1,170 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Vaty - Chatbot SEMYDA</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SEMYDA - Vaty, chatbot & services</title>
+  <style>
+    /* Reset et base */
+    body {
+      margin: 0; padding: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f7fa;
+      color: #222;
+      line-height: 1.6;
+    }
+    h1,h2,h3 {
+      margin: 0 0 10px;
+      font-weight: 700;
+      color: #1e2a78;
+    }
+    p {
+      margin: 0 0 15px;
+    }
+    main {
+      max-width: 900px;
+      margin: 40px auto 80px;
+      padding: 0 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgb(0 0 0 / 0.1);
+    }
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+    header p {
+      font-size: 1.2rem;
+      color: #555;
+    }
+    section {
+      margin-bottom: 40px;
+    }
+    ul.services-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    ul.services-list li {
+      background: #e3e8f9;
+      margin-bottom: 15px;
+      padding: 15px 20px;
+      border-radius: 8px;
+      box-shadow: inset 2px 2px 8px #c4d1ff;
+      font-weight: 600;
+      color: #1e2a78;
+      transition: background 0.3s;
+    }
+    ul.services-list li:hover {
+      background: #c1c9f6;
+      cursor: default;
+    }
+    /* Bouton flottant Vaty */
+    #vaty-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+      cursor: pointer;
+      border: none;
+      background: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      box-shadow: 0 0 15px rgba(30, 42, 120, 0.6);
+      animation: pulse 2s infinite;
+      transition: box-shadow 0.3s ease;
+    }
+    #vaty-button:hover,
+    #vaty-button:focus {
+      box-shadow: 0 0 25px rgba(30, 42, 120, 0.9);
+      outline: none;
+    }
+    #vaty-button img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+    /* Fenêtre chatbot */
+    #vaty-chatbot {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 400px;
+      height: 600px;
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 8px 24px rgba(30, 42, 120, 0.4);
+      display: none;
+      z-index: 9999;
+      background: white;
+    }
+  </style>
 </head>
 <body>
 
-  <div id="chat-button">
-    <img src="assets/avatar.png" alt="Vaty" />
-  </div>
+  <header>
+    <h1>SEMYDA</h1>
+    <p>Branding, Data & Conseil - Votre copilote digital</p>
+  </header>
 
-  <div id="chat-container">
-    <div id="chat-loader">
-      <img src="assets/loader.gif" alt="Chargement..." />
-    </div>
-    <iframe id="chat-iframe" src="about:blank" style="display:none;"></iframe>
-    <div class="contact-options">
-      <a href="mailto:contact@semyda.com" target="_blank">📧 Contact mail</a>
-      <a href="https://wa.me/221771234567" target="_blank">💬 WhatsApp</a>
-    </div>
-  </div>
+  <main>
+    <section id="about">
+      <h2>Bienvenue chez SEMYDA</h2>
+      <p>Nous accompagnons les entreprises dans leur transformation digitale avec une expertise pointue en branding, analyse de données, conseil stratégique, solutions digitales sur mesure, optimisation des process métiers et études de marché orientées data.</p>
+      <p>Découvrez Vaty, notre chatbot intelligent, toujours prêt à répondre à vos questions et vous guider.</p>
+    </section>
 
-  <audio id="chat-sound" src="assets/sound.mp3" preload="auto"></audio>
+    <section id="services">
+      <h2>Nos Services</h2>
+      <ul class="services-list">
+        <li><strong>Branding & communication :</strong> création d’identités visuelles fortes et stratégies de marque percutantes</li>
+        <li><strong>Analyse & modélisation de données :</strong> valorisation des données pour mieux décider</li>
+        <li><strong>Conseil stratégique :</strong> élaboration de stratégies sur mesure orientées croissance</li>
+        <li><strong>Solutions digitales sur mesure :</strong> technologies adaptées aux besoins métiers</li>
+        <li><strong>Optimisation des process métiers :</strong> gain de productivité et réduction des coûts</li>
+        <li><strong>Études de marché orientées data :</strong> analyse fine pour un positionnement efficace</li>
+      </ul>
+    </section>
+  </main>
 
-  <script src="script.js"></script>
+  <!-- Bouton flottant Vaty -->
+  <button id="vaty-button" aria-label="Ouvrir le chatbot Vaty">
+    <img src="assets/avatar.png" alt="Avatar Vaty" />
+  </button>
+
+  <!-- Iframe chatbot, cachée par défaut -->
+  <iframe id="vaty-chatbot" src="about:blank" aria-hidden="true" title="Chatbot Vaty"></iframe>
+
+  <script>
+    const btn = document.getElementById('vaty-button');
+    const iframe = document.getElementById('vaty-chatbot');
+
+    btn.addEventListener('click', () => {
+      if (iframe.style.display === 'none' || iframe.style.display === '') {
+        iframe.style.display = 'block';
+        iframe.src = "https://semyda.github.io/vaty-chatbot/chat.html"; // Remplace par ta vraie page chatbot si différente
+        iframe.setAttribute('aria-hidden', 'false');
+      } else {
+        iframe.style.display = 'none';
+        iframe.src = 'about:blank';
+        iframe.setAttribute('aria-hidden', 'true');
+      }
+    });
+  </script>
+  
 </body>
 </html>
+
